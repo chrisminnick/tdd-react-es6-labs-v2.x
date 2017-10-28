@@ -1,30 +1,21 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-
+import { createStore, compose } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-import thunkMiddleware from 'redux-thunk';
-
 
 //import root reducer
 import rootReducer from '../reducers/index';
 
+import questions from '../data/questions.js';
+
 //create an object for the default data
-var questions = [];
+
 const defaultState = {
     questions,
-    checkedValue: []
+    checkedValue: new Array(questions.length)
 };
 
-const createStoreWithMiddleware =
-    compose( applyMiddleware(thunkMiddleware) )(createStore);
-
-
-function configureStore(initialState) {
-    const store = createStoreWithMiddleware(rootReducer);
-    return store;
-}
-
-const store = configureStore(defaultState);
+const store = createStore(rootReducer, defaultState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export const history = syncHistoryWithStore(browserHistory, store);
 

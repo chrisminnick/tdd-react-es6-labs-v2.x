@@ -16,8 +16,7 @@ class PollContainer extends React.Component {
             padding: '10px'
         };
 
-        var questionsArray = this.props.receiveQuestions();
-
+        var questionsArray = this.props.questions;
         var questionsOutput = questionsArray.map(function(question,questionNumber){
             return (
                 <div key={`question-number-${questionNumber}`}>
